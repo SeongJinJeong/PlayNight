@@ -48,7 +48,11 @@ function Menu(props) {
   return (
     <>
       <Box alignItems="center" display="flex">
-        Menu
+        <Box display={boxShownBySize(["xs", "sm"])}>Menu</Box>{" "}
+        {/*추후 버튼 아이콘 ( <Icontext /> ) 로 변경 필요*/}
+        <Box display={boxShownBySize(["md", "lg", "xl"])}>
+          blablablablabalbalbalbal
+        </Box>
       </Box>
     </>
   );
