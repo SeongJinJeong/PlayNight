@@ -7,4 +7,5 @@
 - Material UI
 - Node.js
 - Express
+- Socket.io
 - MySQL
