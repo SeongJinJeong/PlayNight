@@ -203,6 +203,7 @@ function WebMenu(props) {
     }
     return (
       <Box display="flex" alignItems="center">
+        <form>
         <TextField
           type="text"
           value={text}
@@ -215,9 +216,11 @@ function WebMenu(props) {
           variant="contained"
           color="primary"
           onClick={handleSubmit}
-          disabled={text.length > 0 ? false : true}>
+          disabled={text.length > 0 ? false : true}
+          type="submit">
           <SearchIcon />
         </IconButton>
+        </form>
       </Box>
     );
   }
