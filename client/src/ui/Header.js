@@ -35,9 +35,15 @@ function Header() {
       width={1}
       display="flex"
       justifyContent="center"
-      style={{ borderBottom: "1px solid black", padding: "0.2rem 0em", top: 0 }}
+      style={{
+        borderBottom: "1px solid black",
+        padding: "0.2rem 0em",
+        top: 0,
+        backgroundColor: "white",
+      }}
       position="fixed"
-      margin="0px auto">
+      margin="0px auto"
+    >
       <HeaderContainer />
     </Box>
   );
@@ -168,7 +174,8 @@ function MobileMenu(props) {
           <Box
             onClick={() => {
               toggleDrawerOpen();
-            }}>
+            }}
+          >
             <AiOutlineMenuFold />
           </Box>
         </IconContext.Provider>
@@ -204,22 +211,23 @@ function WebMenu(props) {
     return (
       <Box display="flex" alignItems="center">
         <form>
-        <TextField
-          type="text"
-          value={text}
-          onChange={handleChange}
-          label="검색"
-          variant="standard"
-          size="small"
-        />
-        <IconButton
-          variant="contained"
-          color="primary"
-          onClick={handleSubmit}
-          disabled={text.length > 0 ? false : true}
-          type="submit">
-          <SearchIcon />
-        </IconButton>
+          <TextField
+            type="text"
+            value={text}
+            onChange={handleChange}
+            label="검색"
+            variant="standard"
+            size="small"
+          />
+          <IconButton
+            variant="contained"
+            color="primary"
+            onClick={handleSubmit}
+            disabled={text.length > 0 ? false : true}
+            type="submit"
+          >
+            <SearchIcon />
+          </IconButton>
         </form>
       </Box>
     );
@@ -239,7 +247,8 @@ function WebMenu(props) {
             }}
             onMouseOver={(event) => {
               event.target.style.cursor = "pointer";
-            }}>
+            }}
+          >
             {isOver ? (
               <Badge color="secondary" variant="dot">
                 <NotificationsActiveIcon fontSize="large" />
@@ -262,7 +271,8 @@ function WebMenu(props) {
             }}
             onMouseOver={(event) => {
               event.target.style.cursor = "pointer";
-            }}>
+            }}
+          >
             {isOver ? (
               <NotificationsActiveIcon fontSize="large" />
             ) : (
@@ -293,7 +303,8 @@ function WebMenu(props) {
           anchorEl={anchorEl}
           open={Boolean(anchorEl)}
           keepMounted
-          onClose={handleClose}>
+          onClose={handleClose}
+        >
           <DropDownItem onClick={handleDropDownClick}>프로필</DropDownItem>
           <DropDownItem onClick={handleDropDownClick}>내 계정</DropDownItem>
           <DropDownItem onClick={handleDropDownClick}>로그아웃</DropDownItem>
@@ -328,7 +339,8 @@ function WebMenu(props) {
 
           borderRadius: "5px",
           backgroundColor: "white",
-        }}>
+        }}
+      >
         로그인/가입
       </Box>
     );
@@ -339,7 +351,8 @@ function WebMenu(props) {
       display="flex"
       flexDirection="row"
       justifyContent="space-evenly"
-      alignItems="center">
+      alignItems="center"
+    >
       {/* 검색창 */}
       <Box marginRight="10px" padding="10px">
         <SearchBox />
