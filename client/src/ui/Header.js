@@ -43,6 +43,7 @@ function Header() {
       }}
       position="fixed"
       margin="0px auto"
+      className="Header"
     >
       <HeaderContainer />
     </Box>
