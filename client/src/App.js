@@ -10,7 +10,7 @@ function App() {
           padding: 0,
           backgroundColor: "rgb(249, 249, 249)",
           display: "block",
-          minHeight: window.screen.height,
+          minHeight: window.innerHeight,
         }}
       >
         <Header />

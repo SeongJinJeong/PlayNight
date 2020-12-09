@@ -52,7 +52,7 @@ function Header() {
 
 function HeaderContainer(props) {
   return (
-    <Box width={9.5 / 10} display="flex" justifyContent="space-between">
+    <Box width={9.5 / 10} display="flex" justifyContent="space-around">
       <Title></Title>
       <Menu />
     </Box>
@@ -63,19 +63,19 @@ function Title(props) {
   return (
     <>
       <Box style={{}} display={boxShownBySize(["xs"])}>
-        <h1>PLAYNIGHT</h1> {/*추후 이미지 ( <img /> ) 로 변경 필요*/}
+        <h1>LOGO</h1> {/*추후 이미지 ( <img /> ) 로 변경 필요*/}
       </Box>
       <Box style={{}} display={boxShownBySize(["sm"])}>
-        <h1>PLAYNIGHT with sm</h1> {/*추후 이미지 ( <img /> ) 로 변경 필요*/}
+        <h1>LOGO with sm</h1> {/*추후 이미지 ( <img /> ) 로 변경 필요*/}
       </Box>
       <Box style={{}} display={boxShownBySize(["md"])}>
-        <h1>PLAYNIGHT with md</h1> {/*추후 이미지 ( <img /> ) 로 변경 필요*/}
+        <h1>LOGO with md</h1> {/*추후 이미지 ( <img /> ) 로 변경 필요*/}
       </Box>
       <Box style={{}} display={boxShownBySize(["lg"])}>
-        <h1>PLAYNIGHT with lg</h1> {/*추후 이미지 ( <img /> ) 로 변경 필요*/}
+        <h1>LOGO with lg</h1> {/*추후 이미지 ( <img /> ) 로 변경 필요*/}
       </Box>
       <Box style={{}} display={boxShownBySize(["xl"])}>
-        <h1>PLAYNIGHT with xl</h1> {/*추후 이미지 ( <img /> ) 로 변경 필요*/}
+        <h1>LOGO with xl</h1> {/*추후 이미지 ( <img /> ) 로 변경 필요*/}
       </Box>
     </>
   );
