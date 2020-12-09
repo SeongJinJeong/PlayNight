@@ -16,7 +16,7 @@ function Contents(props) {
         marginTop: document.getElementsByClassName("Header")[0].offsetHeight,
       }}
     >
-      <Jumbo path={"./Images/JumboBg.jpg"} />
+      <Jumbo path={"./Images/JumboBg.jpg"} content={"What the fuck"} />
     </div>
   );
 }

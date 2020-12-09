@@ -19,7 +19,7 @@ function Jumbo(props) {
         // boxSizing: "inherit",
       }}
     >
-      <JumboContents />
+      <JumboContents content={props.content} />
     </div>
   );
 }
