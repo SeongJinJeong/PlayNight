@@ -8,6 +8,7 @@ import {
   Avatar,
   Menu as DropDown,
   MenuItem as DropDownItem,
+  Link,
 } from "@material-ui/core";
 
 // Drawer Import
@@ -53,9 +54,18 @@ function Header() {
 function HeaderContainer(props) {
   return (
     <Box width={9.5 / 10} display="flex" justifyContent="space-around">
-      <Title></Title>
-      <Menu />
+      <LeftHeader />
+      <RightHeader />
     </Box>
+  );
+}
+
+function LeftHeader(props) {
+  return (
+    <>
+      <Title />
+      <LeftMenu />
+    </>
   );
 }
 
@@ -81,7 +91,53 @@ function Title(props) {
   );
 }
 
-function Menu(props) {
+function LeftMenu(props) {
+  return (
+    <>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+
+          marginLeft: "3rem",
+        }}
+      >
+        <LeftMenuItems name={"hi"} />
+        <LeftMenuItems name={"why"} />
+        <LeftMenuItems name={"lie"} />
+      </div>
+    </>
+  );
+}
+
+function LeftMenuItems(props) {
+  return (
+    <>
+      <Box display={boxShownBySize(["sm", "md", "lg", "xl"])}>
+        <span
+          style={{
+            marginRight: "1em",
+            fontWeight: "bold",
+            fontSize: "150%",
+            marginTop: "10px",
+          }}
+        >
+          <Link
+            onMouseOver={(e) => {
+              e.target.style.cursor = "pointer";
+              e.target.style.textDecoration = "none";
+            }}
+          >
+            {props.name}
+          </Link>
+        </span>
+      </Box>
+    </>
+  );
+}
+
+function RightHeader(props) {
   return (
     <>
       <Box alignItems="center" display="flex" marginLeft="auto">
