@@ -1,5 +1,9 @@
 import Header from "./ui/Header";
-import Contents from "./ui/Contents";
+import { Route, Switch } from "react-router-dom";
+
+// Page Import
+import Home from "./Components/Home";
+import Test from "./Components/Test";
 
 function App() {
   return (
@@ -11,10 +15,17 @@ function App() {
           backgroundColor: "rgb(249, 249, 249)",
           display: "block",
           minHeight: window.innerHeight,
-        }}
-      >
+          overflow: "hidden",
+        }}>
         <Header />
-        <Contents />
+        <Switch>
+          <Route path="/" exact={true}>
+            <Home />
+          </Route>
+          <Route path="/fuck">
+            <Test />
+          </Route>
+        </Switch>
       </div>
     </>
   );

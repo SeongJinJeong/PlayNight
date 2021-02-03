@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 
+import { Link } from "react-router-dom";
+
+// Material-UI Import
 import {
   Box,
   IconButton,
@@ -8,7 +11,7 @@ import {
   Avatar,
   Menu as DropDown,
   MenuItem as DropDownItem,
-  Link,
+  Link as Links, // 라우터랑 Link 컴포넌트 이름이 겹쳐 Links 로 변경
 } from "@material-ui/core";
 
 // Drawer Import
@@ -37,15 +40,14 @@ function Header() {
       display="flex"
       justifyContent="center"
       style={{
-        borderBottom: "1px solid black",
+        // borderBottom: "1px solid black",
         padding: "0.2rem 0em",
         top: 0,
-        backgroundColor: "white",
+        backgroundColor: "#ffeebb",
       }}
       position="fixed"
       margin="0px auto"
-      className="Header"
-    >
+      className="Header">
       <HeaderContainer />
     </Box>
   );
@@ -70,6 +72,16 @@ function LeftHeader(props) {
 }
 
 function Title(props) {
+  return (
+    <>
+      <Link to="/" style={{ textDecoration: "none", color: "black" }}>
+        <Logo />
+      </Link>
+    </>
+  );
+}
+
+function Logo(props) {
   return (
     <>
       <Box style={{}} display={boxShownBySize(["xs"])}>
@@ -101,11 +113,10 @@ function LeftMenu(props) {
           alignItems: "center",
 
           marginLeft: "3rem",
-        }}
-      >
-        <LeftMenuItems name={"hi"} />
-        <LeftMenuItems name={"why"} />
-        <LeftMenuItems name={"lie"} />
+        }}>
+        <LeftMenuItems name={"Link1"} />
+        <LeftMenuItems name={"Link2"} />
+        <LeftMenuItems name={"fuck"} />
       </div>
     </>
   );
@@ -121,16 +132,16 @@ function LeftMenuItems(props) {
             fontWeight: "bold",
             fontSize: "150%",
             marginTop: "10px",
-          }}
-        >
-          <Link
+          }}>
+          <Links
             onMouseOver={(e) => {
               e.target.style.cursor = "pointer";
               e.target.style.textDecoration = "none";
-            }}
-          >
-            {props.name}
-          </Link>
+            }}>
+            <Link to={`/${props.name}`} style={{ textDecoration: "none" }}>
+              {props.name}
+            </Link>
+          </Links>
         </span>
       </Box>
     </>
@@ -231,8 +242,7 @@ function MobileMenu(props) {
           <Box
             onClick={() => {
               toggleDrawerOpen();
-            }}
-          >
+            }}>
             <AiOutlineMenuFold />
           </Box>
         </IconContext.Provider>
@@ -281,8 +291,7 @@ function WebMenu(props) {
             color="primary"
             onClick={handleSubmit}
             disabled={text.length > 0 ? false : true}
-            type="submit"
-          >
+            type="submit">
             <SearchIcon />
           </IconButton>
         </form>
@@ -304,8 +313,7 @@ function WebMenu(props) {
             }}
             onMouseOver={(event) => {
               event.target.style.cursor = "pointer";
-            }}
-          >
+            }}>
             {isOver ? (
               <Badge color="secondary" variant="dot">
                 <NotificationsActiveIcon fontSize="large" />
@@ -328,8 +336,7 @@ function WebMenu(props) {
             }}
             onMouseOver={(event) => {
               event.target.style.cursor = "pointer";
-            }}
-          >
+            }}>
             {isOver ? (
               <NotificationsActiveIcon fontSize="large" />
             ) : (
@@ -360,8 +367,7 @@ function WebMenu(props) {
           anchorEl={anchorEl}
           open={Boolean(anchorEl)}
           keepMounted
-          onClose={handleClose}
-        >
+          onClose={handleClose}>
           <DropDownItem onClick={handleDropDownClick}>프로필</DropDownItem>
           <DropDownItem onClick={handleDropDownClick}>내 계정</DropDownItem>
           <DropDownItem onClick={handleDropDownClick}>로그아웃</DropDownItem>
@@ -396,8 +402,7 @@ function WebMenu(props) {
 
           borderRadius: "5px",
           backgroundColor: "white",
-        }}
-      >
+        }}>
         로그인/가입
       </Box>
     );
@@ -408,8 +413,7 @@ function WebMenu(props) {
       display="flex"
       flexDirection="row"
       justifyContent="space-evenly"
-      alignItems="center"
-    >
+      alignItems="center">
       {/* 검색창 */}
       <Box marginRight="10px" padding="10px">
         <SearchBox />

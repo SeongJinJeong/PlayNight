@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Jumbo from "../Components/Jumbo";
+import Jumbo from "./Jumbo";
 
 function Contents(props) {
   const [loading, setLoading] = useState(true);
@@ -13,10 +13,10 @@ function Contents(props) {
   ) : (
     <div
       style={{
-        marginTop: document.getElementsByClassName("Header")[0].offsetHeight,
-      }}
-    >
-      <Jumbo path={"./Images/JumboBg.jpg"} content={"Jumbo Contents"} />
+        marginTop:
+          document.getElementsByClassName("Header")[0].offsetHeight - 1,
+      }}>
+      {props.elements}
     </div>
   );
 }
