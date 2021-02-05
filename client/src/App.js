@@ -8,16 +8,14 @@ import Test from "./Components/Test";
 function App() {
   return (
     <>
-      <div
-        style={{
-          margin: 0,
-          padding: 0,
-          backgroundColor: "rgb(249, 249, 249)",
-          display: "block",
-          minHeight: window.innerHeight,
-          overflow: "hidden",
-        }}>
+      <div style={AppStyle}>
+        {/* 헤더 영역 */}
         <Header />
+        {/* -------------------------------------- */}
+
+        {/* 컨텐츠 영역 */}
+        {/* 컨텐츠 영역을 라우터로 분리 */}
+
         <Switch>
           <Route path="/" exact={true}>
             <Home />
@@ -26,9 +24,21 @@ function App() {
             <Test />
           </Route>
         </Switch>
+
+        {/* -------------------------------------- */}
+        {/* -------------------------------------- */}
       </div>
     </>
   );
 }
+
+const AppStyle = {
+  margin: 0,
+  padding: 0,
+  backgroundColor: "rgb(249, 249, 249)",
+  display: "block",
+  minHeight: window.innerHeight,
+  overflow: "hidden",
+};
 
 export default App;

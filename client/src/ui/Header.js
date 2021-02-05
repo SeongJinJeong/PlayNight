@@ -133,15 +133,18 @@ function LeftMenuItems(props) {
             fontSize: "150%",
             marginTop: "10px",
           }}>
-          <Links
+          <Link
+            to={`/${props.name}`}
+            style={{ textDecoration: "none" }}
             onMouseOver={(e) => {
-              e.target.style.cursor = "pointer";
+              e.target.style.cursor = "cursor";
               e.target.style.textDecoration = "none";
+            }}
+            onClickStart={(e) => {
+              e.target.style.color = "black";
             }}>
-            <Link to={`/${props.name}`} style={{ textDecoration: "none" }}>
-              {props.name}
-            </Link>
-          </Links>
+            {props.name}
+          </Link>
         </span>
       </Box>
     </>
