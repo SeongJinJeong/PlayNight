@@ -1,11 +1,11 @@
-# PLAYNIGHT
+# TEMPLATE
 이 프로젝트는 React 와 Node.js 를 사용해 개발할 신규 프로젝트다.
 ## Purpose
-목적 : 위 웹사이트는 유저에게 24시간 운영하는 레저 ( 활동 ) 에 대한 정보를 제공하기 위해 만들어짐
+목적 : 쉽고 빠른 웹사이트 구축을 위해, 기본적인 기능들을 미리 템플릿으로 구현함
 ## Used Skills
 - React
 - Material UI
 - Node.js
-- Express
+- 
 - Socket.io
 - MySQL
