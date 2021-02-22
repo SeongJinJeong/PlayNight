@@ -13,15 +13,22 @@
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <title>React App</title>
     <style>
-      html,body {
-        margin : 0;
-        padding : 0;
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+
+        height: 100%;
+        width: 100%;
+      }
+
+      #root {
+        min-height: 100%;
       }
     </style>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root">
-    </div>
+    <div id="root"></div>
   </body>
 </html>

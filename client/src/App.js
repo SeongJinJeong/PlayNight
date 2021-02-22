@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router-dom";
 // Page Import
 import Home from "./Components/Home";
 import Test from "./Components/Test";
+import Login from "./Components/Login";
 
 function App() {
   return (
@@ -23,6 +24,9 @@ function App() {
           <Route path="/fuck">
             <Test />
           </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
         </Switch>
 
         {/* -------------------------------------- */}
@@ -35,10 +39,13 @@ function App() {
 const AppStyle = {
   margin: 0,
   padding: 0,
-  backgroundColor: "rgb(249, 249, 249)",
+
+  backgroundColor: "#F5F6F7",
+
   display: "block",
-  minHeight: window.innerHeight,
   overflow: "hidden",
+
+  minHeight: window.innerHeight,
 };
 
 export default App;

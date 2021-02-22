@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 // Material-UI Import
 import {
@@ -170,8 +170,10 @@ function RightHeader(props) {
 }
 
 function MobileMenu(props) {
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+
+  const history = useHistory();
 
   function toggleDrawerClose() {
     setIsOpen(false);
@@ -185,14 +187,23 @@ function MobileMenu(props) {
   function drawerList() {
     // Return List Items
     function ListItemObject(props) {
+      function handleDrawerItemClick() {
+        // toggleDrawerClose();
+        console.log(`/${props.path}`);
+        history.push(`/${props.path}`);
+      }
       return (
         <Box onClick={toggleDrawerClose}>
-          <ListItem button>
-            {props.listIcon ? (
-              <ListItemIcon>{props.listIcon}</ListItemIcon>
-            ) : null}
-            {props.listText ? <ListItemText primary={props.listText} /> : null}
-          </ListItem>
+          <div onClick={handleDrawerItemClick}>
+            <ListItem button>
+              {props.listIcon ? (
+                <ListItemIcon>{props.listIcon}</ListItemIcon>
+              ) : null}
+              {props.listText ? (
+                <ListItemText primary={props.listText} />
+              ) : null}
+            </ListItem>
+          </div>
         </Box>
       );
     }
@@ -205,10 +216,12 @@ function MobileMenu(props) {
             <ListItemObject
               listIcon={<Avatar variant="rounded">J</Avatar>}
               listText="프로필"
+              path={"profile"}
             />
             <ListItemObject
               listIcon={<BiLogOutCircle />}
               listText={"로그아웃"}
+              path={"logout"}
               isBottom={true}
             />
           </List>
@@ -219,10 +232,15 @@ function MobileMenu(props) {
             <ListItemObject
               listIcon={<Avatar variant="rounded">J</Avatar>}
               listText="프로필"
+              path={"profile"}
             />
+            <ListItemObject listText="Link1" path={"link1"} menu />
+            <ListItemObject listText="Link2" path={"Link2"} menu />
+            <ListItemObject listText="fuck" path={"fuck"} menu />
             <ListItemObject
               listIcon={<BiLogInCircle />}
               listText={"로그인/가입"}
+              path={"login"}
               isBottom={true}
             />
           </List>
@@ -263,7 +281,7 @@ function MobileMenu(props) {
 
 function WebMenu(props) {
   // 추후 로그인 여부 확인한 다음 isLogin 로직 수정 필요
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
   function SearchBox(props) {
     const [text, setText] = useState("");
 
@@ -383,6 +401,10 @@ function WebMenu(props) {
   }
 
   function Login(props) {
+    const history = useHistory();
+    function handleLoginClick() {
+      history.push("/login");
+    }
     return (
       <Box
         fontWeight="bold"
@@ -405,7 +427,8 @@ function WebMenu(props) {
 
           borderRadius: "5px",
           backgroundColor: "white",
-        }}>
+        }}
+        onClick={handleLoginClick}>
         로그인/가입
       </Box>
     );

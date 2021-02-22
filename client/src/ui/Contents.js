@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Jumbo from "./Jumbo";
 
-function Contents(props) {
+function Contents({ elements }) {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     return document.getElementsByClassName("Header")[0].offsetHeight !== null
@@ -15,8 +14,12 @@ function Contents(props) {
       style={{
         marginTop:
           document.getElementsByClassName("Header")[0].offsetHeight - 1,
+        minHeight:
+          window.innerHeight -
+          document.getElementsByClassName("Header")[0].offsetHeight,
+        height: "100%",
       }}>
-      {props.elements}
+      {elements}
     </div>
   );
 }
