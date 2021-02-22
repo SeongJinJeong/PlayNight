@@ -6,6 +6,6 @@
 - React
 - Material UI
 - Node.js
-- 
+- Nest.js ( Express )
 - Socket.io
 - MySQL
