@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 
@@ -57,11 +58,35 @@ function LoginForm(props) {
 
   const history = useHistory();
 
+  const fetchLogin = async (loginData) => {
+    const response = await axios.post(
+      "http://localhost:8080/api/login",
+      loginData,
+      { headers: { "Access-Control-Allow-Origin": "*" } }
+    );
+    return response;
+  };
+
   // 추후, Fetch 로 로그인 처리 로직 작성 필요
   const handleLoginFormSubmit = (e) => {
     e.preventDefault();
     console.log(`ID : ${id} && PassWd : ${passwd}`);
-    history.push("/");
+    const loginData = {
+      id: id,
+      password: passwd,
+    };
+    fetchLogin(loginData)
+      .then((value) => {
+        if (value.data.status) {
+          history.push("/");
+        } else {
+          console.log(value);
+          setId("");
+          setPasswd("");
+          alert("Login Failed");
+        }
+      })
+      .catch(console.log);
   };
 
   const handleIdChange = (e) => {
@@ -79,6 +104,7 @@ function LoginForm(props) {
           style={inputStyle}
           placeholder="아이디"
           onChange={handleIdChange}
+          value={id}
         />
 
         <input
@@ -86,6 +112,7 @@ function LoginForm(props) {
           style={inputStyle}
           placeholder="비밀번호"
           onChange={handlePwChange}
+          value={passwd}
         />
         <button type="submit" style={inputStyle}>
           LOGIN

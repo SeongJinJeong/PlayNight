@@ -1,3 +1,3 @@
 export default class ipDTo {
-  ip: string;
+  readonly ip: string;
 }

@@ -38,6 +38,18 @@ export class ApiController {
     }
   }
 
-  // @Post('/login')
-  // loginAuth(@Body() loginData: loginDTO): object {}
+  @Post('/login')
+  loginAuth(@Body() loginData: loginDTO): object {
+    const result = this.apiService.loginAuth(loginData);
+    if (result) {
+      return {
+        status: true,
+        userInfo: 'admin',
+      };
+    } else {
+      return {
+        status: false,
+      };
+    }
+  }
 }
