@@ -1,4 +1,7 @@
 import React, { useEffect } from "react";
+
+import axios from "axios";
+
 import Jumbo from "../ui/Jumbo";
 import Contents from "../ui/Contents";
 
@@ -12,14 +15,34 @@ function Home(props) {
     return ip;
   };
 
+  const fetchIp = async () => {
+    const ip = await getIp();
+    // console.log(ip);
+    const ipData = {
+      ip: ip,
+    };
+    const response = await axios.post(
+      "http://localhost:8080/api/getIp",
+      ipData,
+      {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+      }
+    );
+    if (response.data !== null) {
+      return response;
+    } else {
+      return new Error("Fetch Failed!");
+    }
+  };
+
   // 메인 페이지에 접속했을 때, 유저 ip 불러오고, 이미 정보가 있으면 서버에 보내지 않음
   useEffect(() => {
     // 추후에 리덕스를 사용해, 이미 정보가 있는 경우 ( 리덕스 STATE 가 NULL 이 아닐때 ) 에는 서버에 보내지 않게 코드 작성 필요
-    getIp()
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => console.log(err));
+    fetchIp().then((value) => {
+      console.log(value);
+    });
   }, []);
 
   return (

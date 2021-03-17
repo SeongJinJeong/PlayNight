@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 
-import Header from "../ui/Header";
 import Contents from "../ui/Contents";
 
 function Login(props) {

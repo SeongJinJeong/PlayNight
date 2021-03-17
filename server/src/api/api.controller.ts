@@ -1,21 +1,43 @@
-import { Body, Controller, HttpCode, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  HttpException,
+  HttpStatus,
+  Post,
+  Res,
+} from '@nestjs/common';
 import { ApiService } from './api.service';
+
+import ipDTO from '../dto/ip-transfer-dto';
+import loginDTO from '../dto/login-transfer-dto';
 
 @Controller('api')
 export class ApiController {
   constructor(private readonly apiService: ApiService) {}
 
   @Post('/getIp')
-  getIp(@Body() ipBody: { ipAddress: string }): object {
-    if (ipBody.ipAddress) {
+  // @HttpCode(204)
+  getIp(@Body() ipBody: ipDTO): object {
+    if (typeof ipBody.ip === 'string') {
+      this.apiService.logIp(ipBody.ip);
       return {
-        msg: 'Success',
-        ipAddress: ipBody.ipAddress,
+        msg: 'Ip Request Succeed',
+        currentIp: ipBody.ip,
       };
     } else {
-      return {
-        msg: 'Fail',
-      };
+      console.log(`Fail + ${ipBody}`);
+
+      throw new HttpException(
+        {
+          status: HttpStatus.BAD_REQUEST,
+          error: 'Ip Request Failed',
+        },
+        HttpStatus.BAD_REQUEST,
+      );
     }
   }
+
+  // @Post('/login')
+  // loginAuth(@Body() loginData: loginDTO): object {}
 }

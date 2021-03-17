@@ -140,9 +140,10 @@ function LeftMenuItems(props) {
               e.target.style.cursor = "cursor";
               e.target.style.textDecoration = "none";
             }}
-            onClickStart={(e) => {
-              e.target.style.color = "black";
-            }}>
+            // onClickStart={(e) => {
+            //   e.target.style.color = "black";
+            // }}
+          >
             {props.name}
           </Link>
         </span>

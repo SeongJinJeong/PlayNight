@@ -15,9 +15,9 @@ function JumboContents(props) {
         display: "block",
         textAlign: "center",
       }}>
-      <p>
-        <h1 style={{ fontSize: "80px" }}>Jumbo Title</h1>
-      </p>
+      {/* <p> */}
+      <h1 style={{ fontSize: "80px" }}>Jumbo Title</h1>
+      {/* </p> */}
       <p>{props.content || "Jumbo Comments"}</p>
     </div>
   );
