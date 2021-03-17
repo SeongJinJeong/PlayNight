@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 
 import { Link, useHistory } from "react-router-dom";
 
+import Cookies from "universal-cookie";
+
 // Material-UI Import
 import {
   Box,
@@ -281,8 +283,18 @@ function MobileMenu(props) {
 }
 
 function WebMenu(props) {
-  // 추후 로그인 여부 확인한 다음 isLogin 로직 수정 필요
+  const cookies = new Cookies();
   const [isLogin, setIsLogin] = useState(false);
+
+  useEffect(() => {
+    const loginCookieData = cookies.get("loginInfo");
+    console.log(loginCookieData);
+    if (loginCookieData !== undefined) {
+      setIsLogin(true);
+    }
+  }, [cookies.get("loginInfo", { doNotParse: true })]);
+
+  // 추후 로그인 여부 확인한 다음 isLogin 로직 수정 필요
   function SearchBox(props) {
     const [text, setText] = useState("");
 

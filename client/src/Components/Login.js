@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+import Cookies from "universal-cookie";
 
 import Contents from "../ui/Contents";
 
@@ -57,6 +58,7 @@ function LoginForm(props) {
   const [passwd, setPasswd] = useState("");
 
   const history = useHistory();
+  const cookies = new Cookies();
 
   const fetchLogin = async (loginData) => {
     const response = await axios.post(
@@ -78,6 +80,10 @@ function LoginForm(props) {
     fetchLogin(loginData)
       .then((value) => {
         if (value.data.status) {
+          const cookieData = {
+            userInfo: value.data.userInfo,
+          };
+          cookies.set("loginInfo", cookieData, { path: "/" });
           history.push("/");
         } else {
           console.log(value);

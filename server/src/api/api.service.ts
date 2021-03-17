@@ -15,6 +15,7 @@ export class ApiService {
     if (data.id === 'admin' && data.password === '1234') {
       return true;
     } else {
+      console.log(`Login Failed : ${data.id} & ${data.password}`);
       return false;
     }
   }
