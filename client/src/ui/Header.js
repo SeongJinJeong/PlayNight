@@ -4,6 +4,9 @@ import { Link, useHistory } from "react-router-dom";
 
 import Cookies from "universal-cookie";
 
+import { connect } from "react-redux";
+import { setLogin, setLoginData } from "../redux/loginAction";
+
 // Material-UI Import
 import {
   Box,
@@ -13,7 +16,7 @@ import {
   Avatar,
   Menu as DropDown,
   MenuItem as DropDownItem,
-  Link as Links, // 라우터랑 Link 컴포넌트 이름이 겹쳐 Links 로 변경
+  // Link as Links, // 라우터랑 Link 컴포넌트 이름이 겹쳐 Links 로 변경
 } from "@material-ui/core";
 
 // Drawer Import
@@ -160,12 +163,12 @@ function RightHeader(props) {
       <Box alignItems="center" display="flex" marginLeft="auto">
         {/* 모바일 메뉴 */}
         <Box display={boxShownBySize(["xs", "sm"])}>
-          <MobileMenu />
+          <ConnectedMobileMenu />
         </Box>
 
         {/* 웹 메뉴 */}
         <Box display={boxShownBySize(["md", "lg", "xl"])}>
-          <WebMenu />
+          <ConnectedWebMenu />
         </Box>
       </Box>
     </>
@@ -177,6 +180,31 @@ function MobileMenu(props) {
   const [isOpen, setIsOpen] = useState(false);
 
   const history = useHistory();
+
+  const cookies = new Cookies();
+
+  function handleLogoutClick() {
+    setIsLogin(false);
+    props.setIsLogin(false);
+    cookies.remove("loginInfo");
+    history.push("/");
+    console.log("cookie Deleted");
+  }
+
+  useEffect(() => {
+    const loginCookieData = cookies.get("loginInfo");
+    console.log(loginCookieData);
+    if (loginCookieData !== undefined) {
+      setIsLogin(true);
+      props.setIsLogin(true);
+      props.setLoginData(loginCookieData);
+    }
+  }, []);
+
+  useEffect(() => {
+    setIsLogin(props.login.isLogin);
+    console.log(props.login.isLogin);
+  }, [props.login.isLogin]);
 
   function toggleDrawerClose() {
     setIsOpen(false);
@@ -192,9 +220,15 @@ function MobileMenu(props) {
     function ListItemObject(props) {
       function handleDrawerItemClick() {
         // toggleDrawerClose();
-        console.log(`/${props.path}`);
-        history.push(`/${props.path}`);
+        if (props.path === "/logout") {
+          handleLogoutClick();
+          history.push("/");
+        } else {
+          console.log(`/${props.path}`);
+          history.push(`/${props.path}`);
+        }
       }
+
       return (
         <Box onClick={toggleDrawerClose}>
           <div onClick={handleDrawerItemClick}>
@@ -224,7 +258,7 @@ function MobileMenu(props) {
             <ListItemObject
               listIcon={<BiLogOutCircle />}
               listText={"로그아웃"}
-              path={"logout"}
+              path={"/logout"}
               isBottom={true}
             />
           </List>
@@ -286,13 +320,27 @@ function WebMenu(props) {
   const cookies = new Cookies();
   const [isLogin, setIsLogin] = useState(false);
 
+  const history = useHistory();
+
+  const handleLogoutClick = () => {
+    props.setIsLogin(false);
+    cookies.remove("loginInfo");
+  };
+
   useEffect(() => {
     const loginCookieData = cookies.get("loginInfo");
     console.log(loginCookieData);
     if (loginCookieData !== undefined) {
       setIsLogin(true);
+      props.setIsLogin(true);
+      props.setLoginData(loginCookieData);
     }
-  }, [cookies.get("loginInfo", { doNotParse: true })]);
+  }, []);
+
+  useEffect(() => {
+    setIsLogin(props.login.isLogin);
+    console.log(props.login.isLogin);
+  }, [props.login.isLogin]);
 
   // 추후 로그인 여부 확인한 다음 isLogin 로직 수정 필요
   function SearchBox(props) {
@@ -391,9 +439,21 @@ function WebMenu(props) {
     function handleClose() {
       setAnchorEl(null);
     }
-    function handleDropDownClick() {
-      alert("You Clicked Drop Down Item!");
-      setAnchorEl(null);
+
+    function DropDownItemWrapper(props) {
+      function handleDropDownClick() {
+        // alert("You Clicked Drop Down Item!");
+        if (props.path === "/logout") {
+          handleLogoutClick();
+          history.push("/");
+        } else {
+          history.push(props.path);
+        }
+        setAnchorEl(null);
+      }
+      return (
+        <DropDownItem onClick={handleDropDownClick}>{props.text}</DropDownItem>
+      );
     }
     return (
       <>
@@ -402,9 +462,9 @@ function WebMenu(props) {
           open={Boolean(anchorEl)}
           keepMounted
           onClose={handleClose}>
-          <DropDownItem onClick={handleDropDownClick}>프로필</DropDownItem>
-          <DropDownItem onClick={handleDropDownClick}>내 계정</DropDownItem>
-          <DropDownItem onClick={handleDropDownClick}>로그아웃</DropDownItem>
+          <DropDownItemWrapper path={"/profile"} text={"프로필"} />
+          <DropDownItemWrapper path={"/account"} text={"내 계정"} />
+          <DropDownItemWrapper path={"/logout"} text={"로그아웃"} />
         </DropDown>
         <Box onClick={handleClick}>
           <Avatar variant="rounded">J</Avatar>
@@ -467,6 +527,28 @@ function WebMenu(props) {
     </Box>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    ...state,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setIsLogin: (bool) => {
+      dispatch(setLogin(bool));
+    },
+    setLoginData: (data) => {
+      dispatch(setLoginData(data));
+    },
+  };
+};
+const ConnectedWebMenu = connect(mapStateToProps, mapDispatchToProps)(WebMenu);
+const ConnectedMobileMenu = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MobileMenu);
 
 // 배열을 받아 배열 안의 사이즈들은 block 이 외는 none
 function boxShownBySize(sizeArray) {

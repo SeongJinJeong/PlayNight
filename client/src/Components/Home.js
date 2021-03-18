@@ -17,7 +17,6 @@ function Home(props) {
 
   const fetchIp = async () => {
     const ip = await getIp();
-    // console.log(ip);
     const ipData = {
       ip: ip,
     };

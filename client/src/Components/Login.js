@@ -3,10 +3,14 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import Cookies from "universal-cookie";
 
+import { connect } from "react-redux";
+
 import Contents from "../ui/Contents";
 
+import { setLoginData, setLogin } from "../redux/loginAction";
+
 function Login(props) {
-  useEffect(() => {}, []);
+  useEffect(() => {}, [console.log(props)]);
   return (
     <>
       <Contents elements={<LoginWrapper />} />
@@ -18,7 +22,7 @@ function LoginWrapper() {
   return (
     <div style={LoginWrapperStyle}>
       <LoginTitle />
-      <LoginForm />
+      <ConnectedLoginForm />
     </div>
   );
 }
@@ -84,6 +88,12 @@ function LoginForm(props) {
             userInfo: value.data.userInfo,
           };
           cookies.set("loginInfo", cookieData, { path: "/" });
+          console.log(props);
+          props.setIsLogin(true);
+          props.setLoginData(value.data);
+          console.log(
+            `Login Succeed with Login Status : ${props.login.isLogin} & ${props.login.loginData}`
+          );
           history.push("/");
         } else {
           console.log(value);
@@ -143,6 +153,24 @@ function LoginForm(props) {
     </div>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    ...state,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setIsLogin: (bool) => dispatch(setLogin(bool)),
+    setLoginData: (data) => dispatch(setLoginData(data)),
+  };
+};
+
+const ConnectedLoginForm = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LoginForm);
 
 const LoginFormDivStyle = {
   width: "80%",
