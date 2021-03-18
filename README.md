@@ -9,3 +9,9 @@
 - Nest.js ( Express )
 - Socket.io
 - MySQL
+## Functions
+- Login/Logout
+- Jumbo
+- Chattings
+- UserInfo
+- Admin Page
