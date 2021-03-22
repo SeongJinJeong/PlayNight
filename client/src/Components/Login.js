@@ -10,7 +10,9 @@ import Contents from "../ui/Contents";
 import { setLoginData, setLogin } from "../redux/loginAction";
 
 function Login(props) {
-  useEffect(() => {}, [console.log(props)]);
+  useEffect(() => {
+    console.log(props);
+  }, []);
   return (
     <>
       <Contents elements={<LoginWrapper />} />
@@ -51,7 +53,8 @@ function LoginTitle() {
       onClick={handleLogoClick}
       onMouseOver={(e) => {
         e.target.style.cursor = "pointer";
-      }}>
+      }}
+    >
       LOGO
     </h1>
   );
@@ -87,7 +90,7 @@ function LoginForm(props) {
           const cookieData = {
             userInfo: value.data.userInfo,
           };
-          cookies.set("loginInfo", cookieData, { path: "/" });
+          cookies.set("loginInfo", JSON.stringify(cookieData), { path: "/" });
           console.log(props);
           props.setIsLogin(true);
           props.setLoginData(value.data);
@@ -138,14 +141,16 @@ function LoginForm(props) {
             style={{ marginRight: "10px" }}
             onClick={(e) => {
               history.push("/register");
-            }}>
+            }}
+          >
             회원가입
           </span>
           <span
             style={{ marginRight: "10px" }}
             onClick={(e) => {
               history.push("/accountSearch");
-            }}>
+            }}
+          >
             아이디/비밀번호 찾기
           </span>
         </div>
