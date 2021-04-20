@@ -89,6 +89,7 @@ function LoginForm(props) {
         if (value.data.status) {
           const cookieData = {
             userInfo: value.data.userInfo,
+            key: value.data.key,
           };
           cookies.set("loginInfo", JSON.stringify(cookieData), { path: "/" });
           console.log(props);

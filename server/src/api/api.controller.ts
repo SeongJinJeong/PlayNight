@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   HttpCode,
   HttpException,
   HttpStatus,
@@ -11,6 +12,7 @@ import { ApiService } from './api.service';
 
 import ipDTO from '../dto/ip-transfer-dto';
 import loginDTO from '../dto/login-transfer-dto';
+import authByKeyDTO from 'src/dto/authByKey-transfer-dto';
 
 @Controller('api')
 export class ApiController {
@@ -45,11 +47,17 @@ export class ApiController {
       return {
         status: true,
         userInfo: 'admin',
+        key : 1000
       };
     } else {
       return {
         status: false,
       };
     }
+  }
+
+  @Post('/authUser')
+  getUserInfo(@Body() key: authByKeyDTO):object | void {
+    return this.apiService.authUser(key).then((data)=>{console.log(data);const resData = {key : key.key, userName : key.userName , isValid : true};return resData}).catch(err=>console.log(err))
   }
 }

@@ -7,6 +7,8 @@ import Cookies from "universal-cookie";
 import { connect } from "react-redux";
 import { setLogin, setLoginData } from "../redux/loginAction";
 
+import axios from "axios";
+
 // Material-UI Import
 import {
   Box,
@@ -329,6 +331,19 @@ function WebMenu(props) {
     cookies.remove("loginInfo");
   };
 
+  const fetchAuthValid = async (data) => {
+    const authData = {
+      key: data.key,
+      userName: data.userName,
+    };
+    const response = await axios.post(
+      "http://localhost:8080/api/authUser",
+      authData,
+      { headers: { "Access-Control-Allow-Origin": "*" } }
+    );
+    return response;
+  };
+
   useEffect(() => {
     const loginCookieData = cookies.get("loginInfo");
     console.log(loginCookieData);
@@ -338,6 +353,15 @@ function WebMenu(props) {
       props.setLoginData(loginCookieData);
     }
   }, []);
+
+  useEffect(() => {
+    if (isLogin == true) {
+      const loginInfo = cookies.get("loginInfo");
+      fetchAuthValid(loginInfo).then((value) => {
+        console.log(value);
+      });
+    }
+  }, [isLogin]);
 
   useEffect(() => {
     setIsLogin(props.login.isLogin);

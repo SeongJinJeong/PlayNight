@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
+import { rejects } from 'assert';
 import { truncateSync } from 'fs';
+import authByKeyDTO from 'src/dto/authByKey-transfer-dto';
 import loginDTO from 'src/dto/login-transfer-dto';
 
 @Injectable()
@@ -18,5 +20,15 @@ export class ApiService {
       console.log(`Login Failed : ${data.id} & ${data.password}`);
       return false;
     }
+  }
+
+  authUser(key:authByKeyDTO){
+    return new Promise((resolve,rejects)=>{
+      if(key.key === 1000) {
+        resolve(true)
+      } else {
+        throw Error("Key is not valid")
+      }
+    })
   }
 }
