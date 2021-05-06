@@ -58,6 +58,16 @@ export class ApiController {
 
   @Post('/authUser')
   getUserInfo(@Body() key: authByKeyDTO):object | void {
-    return this.apiService.authUser(key).then((data)=>{console.log(data);const resData = {key : key.key, userName : key.userName , isValid : true};return resData}).catch(err=>console.log(err))
+    return this.apiService.authUser(key)
+    .then((data)=>{
+      console.log(data);
+      const resData = {
+        key : key.key,
+        userName : key.userName,
+        isValid : true
+      };
+      return resData;
+    })
+    .catch(err=>console.log(err))
   }
 }

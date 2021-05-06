@@ -191,25 +191,48 @@ function MobileMenu(props) {
   function handleLogoutClick() {
     setIsLogin(false);
     props.setIsLogin(false);
+    props.setLoginData(null);
     cookies.remove("loginInfo");
     history.push("/");
     console.log("cookie Deleted");
   }
 
+  const fetchAuthValid = async (data) => {
+    const authData = {
+      key: data.key,
+      userName: data.userName,
+    };
+    const response = await axios.post(
+      "http://localhost:8080/api/authUser",
+      authData,
+      { headers: { "Access-Control-Allow-Origin": "*" } }
+    );
+    return response;
+  };
+
   useEffect(() => {
     const loginCookieData = cookies.get("loginInfo");
     console.log(loginCookieData);
-    if (loginCookieData !== undefined) {
+    
+    if (loginCookieData !== undefined || null) {
       setIsLogin(true);
       props.setIsLogin(true);
       props.setLoginData(loginCookieData);
     }
-  }, []);
+  }, [props.login.isLogin]);
 
   useEffect(() => {
-    setIsLogin(props.login.isLogin);
-    console.log(props.login.isLogin);
-  }, [props.login.isLogin]);
+    if (isLogin == true) {
+      const loginInfo = cookies.get("loginInfo");
+      fetchAuthValid(loginInfo)
+        .then((value) => {
+          console.log(value);
+        })
+        .catch((err) => {
+          alert("Login Key is not valid" + err);
+        });
+    }
+  }, [isLogin]);
 
   function toggleDrawerClose() {
     setIsOpen(false);
@@ -327,8 +350,12 @@ function WebMenu(props) {
   const history = useHistory();
 
   const handleLogoutClick = () => {
+    setIsLogin(false);
     props.setIsLogin(false);
+    props.setLoginData(null);
     cookies.remove("loginInfo");
+    history.push("/");
+    console.log("cookie Deleted");
   };
 
   const fetchAuthValid = async (data) => {
@@ -347,26 +374,26 @@ function WebMenu(props) {
   useEffect(() => {
     const loginCookieData = cookies.get("loginInfo");
     console.log(loginCookieData);
-    if (loginCookieData !== undefined) {
+
+    if (loginCookieData !== undefined || null) {
       setIsLogin(true);
       props.setIsLogin(true);
       props.setLoginData(loginCookieData);
     }
-  }, []);
+  }, [props.login.isLogin]);
 
   useEffect(() => {
     if (isLogin == true) {
       const loginInfo = cookies.get("loginInfo");
-      fetchAuthValid(loginInfo).then((value) => {
-        console.log(value);
-      });
+      fetchAuthValid(loginInfo)
+        .then((value) => {
+          console.log(value);
+        })
+        .catch((err) => {
+          alert("Login Key is not valid" + err);
+        });
     }
   }, [isLogin]);
-
-  useEffect(() => {
-    setIsLogin(props.login.isLogin);
-    console.log(props.login.isLogin);
-  }, [props.login.isLogin]);
 
   // 추후 로그인 여부 확인한 다음 isLogin 로직 수정 필요
   function SearchBox(props) {
